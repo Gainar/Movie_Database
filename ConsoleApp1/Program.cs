@@ -50,17 +50,9 @@ namespace ConsoleApp1
                     }
 
 
-                }
-
-
-                //var MovieList = connection.Query<Movie>(sqlSelect).ToList();
-                ////var orderDetail = connection.QueryFirstOrDefault<OrderDetail>(sqlOrderDetail, new { OrderDetailID = 1 });
-                ////var affectedRows = connection.Execute(sqlCustomerInsert, new { CustomerName = "Mark" });
+                } 
                 Console.ReadLine();
-                ////Console.WriteLine(affectedRows);
 
-                ////FiddleHelper.WriteTable(MovieList);
-                ////FiddleHelper.WriteTable(new List<OrderDetail>() { orderDetail });
             }
         }
 
@@ -110,12 +102,6 @@ namespace ConsoleApp1
             newM.Rating = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter the creator's name");
             var nume = Console.ReadLine();
-            //Console.WriteLine("Is it ok ?Y/N");
-            //Console.WriteLine(newM.Title.Trim() + " " + newM.Year + " " + newM.Genre.Trim() + " " + newM.Type.Trim() + " " + newM.Rating + " " + newM.Fk_Creator_Id);
-            //if (Console.ReadKey().Key == ConsoleKey.N)
-            //{
-            //    return;
-            //}
             x.Execute(sqlUpdate, new { y = newM.Year, g = newM.Genre, t = newM.Type, r = newM.Rating, key = CreatorList.Find(item => item.Name.Trim() == nume).Pk_Creator_Id, title = tit });
 
         }
