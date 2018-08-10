@@ -60,9 +60,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Creator.cs" />
-    <Compile Include="Movie.cs" />
-    <Compile Include="MovieCreator.cs" />
+    <Compile Include="IMovieRepository.cs" />
+    <Compile Include="Models\Creator.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\MovieCreator.cs" />
+    <Compile Include="MovieRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
