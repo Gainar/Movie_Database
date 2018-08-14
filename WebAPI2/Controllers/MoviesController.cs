@@ -14,21 +14,25 @@ namespace WebAPI2.Controllers
 
         public IEnumerable<MovieCreator> Get()
         {
-            var repo = new MovieRepository(); 
-            var MovieList = repo.GetAllMovies()
-                                .OrderBy(f => f.Title);                                
-            return MovieList;
+            var repo = new MovieRepository();
+            return repo.GetAllMovies()
+                       .OrderBy(f => f.Title);
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public MovieCreator Get(string tit)
         {
-            return "value";
+            var repo = new MovieRepository();
+            return repo.GetMovie(tit);
+
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]MovieCreator mov)
         {
+            var repo = new MovieRepository();
+            repo.AddMovie(mov);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         // PUT api/<controller>/5

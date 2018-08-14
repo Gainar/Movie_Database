@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
 
 namespace ConsoleApp1
 {
@@ -15,48 +9,47 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             movRepo = new MovieRepository();
-            using (var connection = new SqlConnection(@"Data Source = USER-PC2; Initial Catalog=Movie_Databases; User id=sa; Password=1;"))
+
+            var opt = '1';
+            while (opt != '5')
             {
-                var opt = '1';
-                while (opt != '5')
+                Console.Clear();
+                Console.WriteLine("Select an option");
+                Console.WriteLine("1.Add");
+                Console.WriteLine("2.View");
+                Console.WriteLine("3.Edit");
+                Console.WriteLine("4.Delete");
+                Console.WriteLine("5.Exit");
+                opt = char.Parse(Console.ReadLine());
+
+                switch (opt)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Select an option");
-                    Console.WriteLine("1.Add");
-                    Console.WriteLine("2.View");
-                    Console.WriteLine("3.Edit");
-                    Console.WriteLine("4.Delete");
-                    Console.WriteLine("5.Exit");
-                    opt = char.Parse(Console.ReadLine());
-
-                    switch (opt)
-                    {
-                        case '1':
-                            Add();
-                            break;
-                        case '2':
-                            View();
-                            Console.ReadKey();
-                            break;
-                        case '3':
-                            Edit(connection);
-                            break;
-                        case '4':
-                            Delete();
-                            break;
-                        case '5':
-                            Console.WriteLine("Until next time.");
-                            break;
-                        default:
-                            Console.WriteLine("Choose a valid option");
-                            break;
-                    }
-
-
+                    case '1':
+                        Add();
+                        break;
+                    case '2':
+                        View();
+                        Console.ReadKey();
+                        break;
+                    case '3':
+                        Edit();
+                        break;
+                    case '4':
+                        Delete();
+                        break;
+                    case '5':
+                        Console.WriteLine("Until next time.");
+                        break;
+                    default:
+                        Console.WriteLine("Choose a valid option");
+                        break;
                 }
-                Console.ReadLine();
+
 
             }
+            Console.ReadLine();
+
+
         }
 
         private static void Delete()
@@ -66,7 +59,7 @@ namespace ConsoleApp1
             movRepo.DeleteByTitleMovie(titlu);
         }
 
-        private static void Edit(SqlConnection x)
+        private static void Edit()
         {
             Movie newM = new Movie();
             Console.WriteLine("Add Title.");
@@ -79,8 +72,6 @@ namespace ConsoleApp1
             newM.Type = Console.ReadLine();
             Console.WriteLine("Please enter a rating between 1 and 5.");
             newM.Rating = int.Parse(Console.ReadLine());
-
-
             movRepo.EditMovie(newM);
         }
 
@@ -96,7 +87,7 @@ namespace ConsoleApp1
 
         private static void Add()
         {
-            Movie newM = new Movie();
+            MovieCreator newM = new MovieCreator();
             Console.WriteLine("Enter a new title");
             newM.Title = Console.ReadLine();
             Console.WriteLine("Enter the year");
@@ -107,6 +98,8 @@ namespace ConsoleApp1
             newM.Type = Console.ReadLine();
             Console.WriteLine("Enter the rating");
             newM.Rating = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter an author");
+            newM.Name= Console.ReadLine();
             movRepo.AddMovie(newM);
 
 
