@@ -15,5 +15,6 @@ namespace ConsoleApp1
         void DeleteByTitleMovie(string title);
         MovieCreator GetMovie(string tit);
         List<MovieCreator> GetAllMovies();
+        List<MovieCreator> Querry
     }
 }

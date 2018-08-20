@@ -21,6 +21,12 @@ namespace WebAPI2
                 routeTemplate: "api/{controller}/{tit}",
                 defaults: new { tit = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+               name: "DefaultApi1",
+               routeTemplate: "api/{controller}/{param}/{val}",
+               defaults: new {parameter=RouteParameter.Optional, value= RouteParameter.Optional }
+           );
         }
     }
 }

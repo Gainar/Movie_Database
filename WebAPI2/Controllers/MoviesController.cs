@@ -22,8 +22,17 @@ namespace WebAPI2.Controllers
         // GET api/<controller>/5
         public MovieCreator Get(string tit)
         {
+
             var repo = new MovieRepository();
             return repo.GetMovie(tit);
+
+        }
+
+        // GET api/<controller>/<parameter>/<value>
+        public List<MovieCreator> Get(string param, string val)
+        {
+            var repo = new MovieRepository();
+            return repo.Querry(param,val);
 
         }
 
@@ -34,6 +43,7 @@ namespace WebAPI2.Controllers
             repo.AddMovie(mov);
             return Request.CreateResponse(HttpStatusCode.Created);
         }
+        
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)

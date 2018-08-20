@@ -14,7 +14,8 @@ namespace ConsoleApp1
 
         public MovieRepository()
         {
-            connectionString = @"Data Source = USER-PC2; Initial Catalog=Movie_Databases; User id=sa; Password=1;";
+            //connectionString = @"Data Source = USER-PC2; Initial Catalog=Movie_Databases; User id=sa; Password=1;";
+            connectionString = @"Data Source= den1.mssql5.gear.host; Initial Catalog=moviedata;User id=moviedata;Password=Dc476_-oMx12;";
         }
         public void AddMovie(MovieCreator mov)
         {
@@ -25,8 +26,7 @@ namespace ConsoleApp1
                 connection.Execute(sqlInsert, new { Tit = mov.Title, y = mov.Year, g = mov.Genre, t = mov.Type, r = mov.Rating, key = CreatorList.Find(item => item.Name.Trim() == mov.Name).Pk_Creator_Id });
             }
         }
-
-
+        
         public void DeleteByIdMovie(Guid id)
         {
             throw new NotImplementedException();
@@ -76,10 +76,19 @@ namespace ConsoleApp1
             using (var connection = new SqlConnection(connectionString))
             {
                 string sqlSelect = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Where Title=@title ;";
-                var mov = new List<MovieCreator>();
-                mov=connection.Query<MovieCreator>(sqlSelect, new { title = tit }).ToList();
+                var mov = connection.Query<MovieCreator>(sqlSelect, new { title = tit }).ToList();
                 return mov[0];
 
+            }
+        }
+
+        public List<MovieCreator> Querry(string param, string val)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string sql = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Where "+param+"="+val+";";
+                var mov=connection.Query<MovieCreator>(sql).ToList();
+                return mov;
             }
         }
     }
