@@ -26,7 +26,7 @@ namespace ConsoleApp1
                 connection.Execute(sqlInsert, new { Tit = mov.Title, y = mov.Year, g = mov.Genre, t = mov.Type, r = mov.Rating, key = CreatorList.Find(item => item.Name.Trim() == mov.Name).Pk_Creator_Id });
             }
         }
-        
+
         public void DeleteByIdMovie(Guid id)
         {
             throw new NotImplementedException();
@@ -86,8 +86,23 @@ namespace ConsoleApp1
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string sql = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Where "+param+"="+val+";";
-                var mov=connection.Query<MovieCreator>(sql).ToList();
+                string sql = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Where " + param + "=" + val + ";";
+                var mov = connection.Query<MovieCreator>(sql).ToList();
+                return mov;
+            }
+        }
+
+        public List<MovieCreator> Querry(string param)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var s = new string[2] { "ASC", "DESC" };
+                string sql;
+                if (param.ToUpper() == "TITLE")
+                    sql = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Order BY " + param + " ASC";
+                else
+                    sql = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id Order BY " + param + " DESC, Title ASC";
+                var mov = connection.Query<MovieCreator>(sql).ToList();
                 return mov;
             }
         }

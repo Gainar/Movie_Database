@@ -16,17 +16,17 @@ namespace WebAPI2
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{tit}",
-                defaults: new { tit = RouteParameter.Optional }
-            );
+            // config.Routes.MapHttpRoute(
+            //     name: "Movie",
+            //     routeTemplate: "api/{controller}/{tit}",
+            //     defaults: new { tit = RouteParameter.Optional }
+            // );
 
-            config.Routes.MapHttpRoute(
-               name: "DefaultApi1",
-               routeTemplate: "api/{controller}/{param}/{val}",
-               defaults: new {parameter=RouteParameter.Optional, value= RouteParameter.Optional }
-           );
+            // config.Routes.MapHttpRoute(
+            //    name: "QuerrySearch",
+            //    routeTemplate: "api/{controller}/{param}/{val}",
+            //    defaults: new { param = RouteParameter.Optional, val = RouteParameter.Optional }
+            //);
         }
     }
 }

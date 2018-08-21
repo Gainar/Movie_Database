@@ -11,7 +11,7 @@ namespace WebAPI2.Controllers
     public class MoviesController : ApiController
     {
         // GET api/<controller>
-
+        [Route ("api/Movies")]
         public IEnumerable<MovieCreator> Get()
         {
             var repo = new MovieRepository();
@@ -20,6 +20,7 @@ namespace WebAPI2.Controllers
         }
 
         // GET api/<controller>/5
+        [Route ("api/Movies/{tit}")]
         public MovieCreator Get(string tit)
         {
 
@@ -27,16 +28,10 @@ namespace WebAPI2.Controllers
             return repo.GetMovie(tit);
 
         }
-
-        // GET api/<controller>/<parameter>/<value>
-        public List<MovieCreator> Get(string param, string val)
-        {
-            var repo = new MovieRepository();
-            return repo.Querry(param,val);
-
-        }
+              
 
         // POST api/<controller>
+        [Route ("api/Movies")]
         public HttpResponseMessage Post([FromBody]MovieCreator mov)
         {
             var repo = new MovieRepository();
