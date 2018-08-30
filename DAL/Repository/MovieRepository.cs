@@ -47,17 +47,15 @@ namespace ConsoleApp1
             throw new NotImplementedException();
         }
 
-        public void EditMovie(Movie mov)
+        public void EditMovie(MovieCreator mov)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 string sqlUpdate = "UPDATE Movie SET Year=@y, Genre=@g, Type=@t, Rating=@r,Fk_Creator_Id=@key WHERE Title=@title";
                 Console.WriteLine("Enter the creator's name");
-                var nume = Console.ReadLine();
                 var creators = connection.Query<Creator>("Select * From Creator;").ToList();
-                mov.Fk_Creator_Id = creators.Find(item => item.Name.Trim().ToUpper() == nume.Trim().ToUpper()).Pk_Creator_Id;
-
-                connection.Execute(sqlUpdate, new { y = mov.Year, g = mov.Genre, t = mov.Type, r = mov.Rating, key = mov.Fk_Creator_Id, title = mov.Title });
+                var x = creators.Find(item => item.Name.Trim().ToUpper() == mov.Name.Trim().ToUpper()).Pk_Creator_Id;
+                connection.Execute(sqlUpdate, new { y = mov.Year, g = mov.Genre, t = mov.Type, r = mov.Rating, key = x, title = mov.Title });
             }
         }
 

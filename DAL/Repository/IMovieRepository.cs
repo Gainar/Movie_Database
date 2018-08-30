@@ -9,7 +9,7 @@ namespace ConsoleApp1
     public interface IMovieRepository
     {
         void AddMovie(MovieCreator mov);
-        void EditMovie(Movie mov);
+        void EditMovie(MovieCreator mov);
         void DeleteMovie(Movie mov);
         void DeleteByIdMovie(Guid id);
         void DeleteByTitleMovie(string title);

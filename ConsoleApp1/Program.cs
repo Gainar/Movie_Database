@@ -61,7 +61,7 @@ namespace ConsoleApp1
 
         private static void Edit()
         {
-            Movie newM = new Movie();
+            var newM = new MovieCreator();
             Console.WriteLine("Add Title.");
             newM.Title = Console.ReadLine();
             Console.WriteLine("Enter changed Year");
@@ -72,6 +72,8 @@ namespace ConsoleApp1
             newM.Type = Console.ReadLine();
             Console.WriteLine("Please enter a rating between 1 and 5.");
             newM.Rating = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter the author's name");
+            newM.Name = Console.ReadLine();
             movRepo.EditMovie(newM);
         }
 
@@ -101,7 +103,7 @@ namespace ConsoleApp1
             Console.WriteLine("Enter an author");
             newM.Name= Console.ReadLine();
             movRepo.AddMovie(newM);
-
+            
 
         }
     }

@@ -41,13 +41,19 @@ namespace WebAPI2.Controllers
         
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [Route ("api/Movies/{tit}")]
+        public void Put([FromBody]MovieCreator mov)
         {
+            var repo = new MovieRepository();
+            repo.EditMovie(mov);
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        [Route ("api/Movies/{tit}/Delete")]
+        public void Delete(string tit)
         {
+            var repo = new MovieRepository();
+            repo.DeleteByTitleMovie(tit);
         }
     }
 }

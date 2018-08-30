@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI2", "WebAPI2\WebAPI2.csproj", "{0A0C4DF7-9F56-4D41-B2D5-D22E210AFE28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.WindowsForms", "Movie.WindowsForms\Movie.WindowsForms.csproj", "{CF48E347-3F55-49C4-8C69-B3954D9EB315}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0A0C4DF7-9F56-4D41-B2D5-D22E210AFE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0C4DF7-9F56-4D41-B2D5-D22E210AFE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0C4DF7-9F56-4D41-B2D5-D22E210AFE28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF48E347-3F55-49C4-8C69-B3954D9EB315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF48E347-3F55-49C4-8C69-B3954D9EB315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF48E347-3F55-49C4-8C69-B3954D9EB315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF48E347-3F55-49C4-8C69-B3954D9EB315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
