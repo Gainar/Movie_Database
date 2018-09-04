@@ -1,15 +1,12 @@
-﻿using System;
-
-namespace ConsoleApp1
+﻿namespace Movie.Core.Models
 {
-    public class Movie
+    public class MovieCreator
     {
-        public Guid Pk_Movie_Id { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
         public string Genre { get; set; }
         public string Type { get; set; }
         public int Rating { get; set; }
-        public Guid Fk_Creator_Id { get; set; }
+        public string Name { get; set; }
     }
 }

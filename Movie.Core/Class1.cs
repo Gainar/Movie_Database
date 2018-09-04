@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Movie.Core
 {
-    class Creator
+    public class Class1
     {
-        public Guid Pk_Creator_Id { get; set;}
-        public string Name { get; set; }
     }
 }

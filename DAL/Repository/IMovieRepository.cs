@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Movie.Core.Models;
 
-namespace ConsoleApp1
+namespace DAL.Repository
 {
     public interface IMovieRepository
     {
         void AddMovie(MovieCreator mov);
         void EditMovie(MovieCreator mov);
-        void DeleteMovie(Movie mov);
+        void DeleteMovie(Movie.Core.Models.Movie mov);
         void DeleteByIdMovie(Guid id);
         void DeleteByTitleMovie(string title);
         MovieCreator GetMovie(string tit);

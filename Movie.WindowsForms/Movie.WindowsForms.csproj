@@ -98,9 +98,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{1FD41649-0877-48B4-A91E-9A7CE321E199}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\Movie.Core\Movie.Core.csproj">
+      <Project>{72CFBED7-4364-4943-BB15-BC67990B1FBD}</Project>
+      <Name>Movie.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Movie.Proxy\Movie.Proxy.csproj">
+      <Project>{FBFF62AD-A3FD-47FB-903B-3618CC86B3DD}</Project>
+      <Name>Movie.Proxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

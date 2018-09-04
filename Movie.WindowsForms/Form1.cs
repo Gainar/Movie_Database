@@ -1,13 +1,7 @@
-﻿using ConsoleApp1;
-using System;
-using System.Data;
-using System.Linq;
+﻿using System;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Collections.Generic;
+using Movie.Core.Models;
+using Movie.Proxy.Proxy;
 
 namespace Movie.WindowsForms
 {
@@ -33,29 +27,26 @@ namespace Movie.WindowsForms
             #region Initialization    
             listBox1.Items.Clear();
             groupBox3.Visible = true;
-            groupBox3.Text = "Series";
+            groupBox3.Text = @"Series";
 
             #endregion
 
-            var client = new HttpClient();
-            var response = await client.GetAsync("http://moviedatabase.gear.host/api/Movies");
-            if (response.IsSuccessStatusCode)
+            var desktopRepo = new Desktop();
+            var x = await desktopRepo.View();
+            foreach (var item in x)
             {
-                var test = await response.Content.ReadAsAsync<List<MovieCreator>>();
-                foreach (var item in test)
+                if (item.Title.Trim().Length > 8)
                 {
-                    if (item.Title.Trim().Length > 8)
-                    {
-                        listBox1.Items.Add(item.Title.Trim() + "\t" + item.Year + "\t" + item.Genre.Trim() + "\t" + item.Type.Trim() + "\t" + item.Rating + "\t" + item.Name.Trim());
-                    }
-                    else
-                    {
-                        listBox1.Items.Add(item.Title.Trim() + "\t\t" + item.Year + "\t" + item.Genre.Trim() + "\t" + item.Type.Trim() + "\t" + item.Rating + "\t" + item.Name.Trim());
-                    }
+                    listBox1.Items.Add(item.Title.Trim() + "\t" + item.Year + "\t" + item.Genre.Trim() + "\t" + item.Type.Trim() + "\t" + item.Rating + "\t" + item.Name.Trim());
+                }
+                else
+                {
+                    listBox1.Items.Add(item.Title.Trim() + "\t\t" + item.Year + "\t" + item.Genre.Trim() + "\t" + item.Type.Trim() + "\t" + item.Rating + "\t" + item.Name.Trim());
                 }
             }
-
         }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -67,7 +58,7 @@ namespace Movie.WindowsForms
             label1.Visible = true;
             ChageVisible(true);
             button4.BringToFront();
-            MessageBox.Show("Enter informations.");
+            MessageBox.Show(@"Enter informations.");
             #endregion
 
         }
@@ -75,9 +66,6 @@ namespace Movie.WindowsForms
         private void button3_Click(object sender, EventArgs e)
         {
             groupBox3.Visible = false;
-            textBox2.Visible = false;
-            label1.Visible = false;
-            ChageVisible(false);
             button2.BringToFront();
             button5.Visible = false;
             button6.Visible = false;
@@ -88,9 +76,8 @@ namespace Movie.WindowsForms
 
         }
 
-        private async void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            var client = new HttpClient();
             var mov = new MovieCreator
             {
                 Title = textBox2.Text,
@@ -100,8 +87,8 @@ namespace Movie.WindowsForms
                 Rating = int.Parse(textBox6.Text),
                 Name = textBox7.Text
             };
-
-            await client.PostAsJsonAsync("http://moviedatabase.gear.host/api/Movies", mov);
+            var desktopRepo = new Desktop();
+            desktopRepo.Add(mov);
             button2.BringToFront();
             textBox2.Visible = false;
             label1.Visible = false;
@@ -119,12 +106,11 @@ namespace Movie.WindowsForms
             ChageVisible(true);
         }
 
-        private async void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            var repo = new MovieRepository();
-            var client = new HttpClient();
             var x = listBox1.SelectedItem.ToString().Split('\t');
-            await client.DeleteAsync($"http://moviedatabase.gear.host/api/Movies/{x[0]}/Delete");
+            var desktopRepo = new Desktop();
+            desktopRepo.Delete(x[0]);
             listBox1.Items.Clear();
             button1_Click(sender, e);
             button5.Visible = false;
@@ -134,9 +120,8 @@ namespace Movie.WindowsForms
             ChageVisible(false);
         }
 
-        private async void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
-            var client = new HttpClient();
             var mov = new MovieCreator();
             var x = listBox1.SelectedItem.ToString().Split('\t');
             var i = x[1] == "" ? 2 : 1;
@@ -146,7 +131,8 @@ namespace Movie.WindowsForms
             mov.Type = textBox4.Text == "" ? x[i + 2] : textBox4.Text;
             mov.Rating = textBox6.Text == "" ? int.Parse(x[i + 3]) : int.Parse(textBox6.Text);
             mov.Name = textBox7.Text == "" ? x[i + 4] : textBox7.Text;
-            await client.PutAsJsonAsync($"http://moviedatabase.gear.host/api/Movies/{mov.Title}", mov);
+            var desktopRepo = new Desktop();
+            desktopRepo.Edit(mov);
             button1_Click(sender, e);
             button5.Visible = false;
             button6.Visible = false;
@@ -155,7 +141,7 @@ namespace Movie.WindowsForms
             ChageVisible(false);
         }
 
-        private void ChageVisible(Boolean x)
+        internal void ChageVisible(bool x)
         {
             textBox3.Visible = x;
             textBox4.Visible = x;
@@ -177,11 +163,5 @@ namespace Movie.WindowsForms
                 textBox7.Text = null;
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
-
 }
