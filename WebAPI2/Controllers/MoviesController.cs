@@ -6,17 +6,30 @@ using System.Net.Http;
 using System.Web.Http;
 using DAL.Repository;
 using Movie.Core.Models;
+using Ninject;
 
 
 namespace WebAPI2.Controllers
 {
     public class MoviesController : ApiController
     {
+        private readonly IMovieRepository repo;
+
+        //public MoviesController()
+        //{
+        //        repo=new MovieRepository();
+        //}
+
+        public MoviesController()
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<IMovieRepository>().To<MovieRepository>();
+            repo = kernel.Get<IMovieRepository>();
+        }
         // GET api/<controller>
         [Route ("api/Movies")]
         public IEnumerable<MovieCreator> Get()
         {
-            var repo = new MovieRepository();
             return repo.GetAllMovies()
                        .OrderBy(f => f.Title);
         }
@@ -25,10 +38,7 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies/{tit}")]
         public MovieCreator Get(string tit)
         {
-
-            var repo = new MovieRepository();
             return repo.GetMovie(tit);
-
         }
               
 
@@ -36,7 +46,6 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies")]
         public HttpResponseMessage Post([FromBody]MovieCreator mov)
         {
-            var repo = new MovieRepository();
             repo.AddMovie(mov);
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -46,7 +55,6 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies/{tit}")]
         public void Put([FromBody]MovieCreator mov)
         {
-            var repo = new MovieRepository();
             repo.EditMovie(mov);
         }
 
@@ -54,7 +62,6 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies/{tit}/Delete")]
         public void Delete(string tit)
         {
-            var repo = new MovieRepository();
             repo.DeleteByTitleMovie(tit);
         }
     }

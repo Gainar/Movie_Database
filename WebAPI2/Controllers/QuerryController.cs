@@ -2,16 +2,24 @@
 using System.Web.Http;
 using DAL.Repository;
 using Movie.Core.Models;
+using Ninject;
 
 namespace WebAPI2.Controllers
 {
     public class QuerryController : ApiController
     {
+        private readonly IMovieRepository repo;
+
+        public QuerryController()
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<IMovieRepository>().To<MovieRepository>();
+            repo = kernel.Get<IMovieRepository>();
+        }
         //GET api/<controller>/<param>
         [Route("api/Querry/{param}")]
         public List<MovieCreator> GET(string param)
         {
-            var repo = new MovieRepository();
             return repo.Querry(param);
 
         }
@@ -20,7 +28,6 @@ namespace WebAPI2.Controllers
         [Route("api/Querry/{param}/{val}")]
         public List<MovieCreator> Get(string param, string val)
         {
-            var repo = new MovieRepository();
             return repo.Querry(param, val);
 
         }

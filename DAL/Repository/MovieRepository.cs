@@ -63,7 +63,7 @@ namespace DAL.Repository
             using (var connection = new SqlConnection(_connectionString))
             {
                 string sqlSelect = "Select Title, Year, Genre, Type, Rating, Name From Movie INNER JOIN Creator on Fk_Creator_Id = Pk_Creator_Id;";
-                return (connection.Query<MovieCreator>(sqlSelect).ToList());
+                return connection.Query<MovieCreator>(sqlSelect).ToList();
 
             }
         }

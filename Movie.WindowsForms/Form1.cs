@@ -2,14 +2,21 @@
 using System.Windows.Forms;
 using Movie.Core.Models;
 using Movie.Proxy.Proxy;
+using Ninject;
 
 namespace Movie.WindowsForms
 {
 
     public partial class Form1 : Form
     {
+        private readonly IDesktop desktopRepo;
+
         public Form1()
         {
+            var kernel = new StandardKernel();
+            kernel.Bind<IDesktop>().To<Desktop>();
+            desktopRepo = kernel.Get<IDesktop>();
+
             InitializeComponent();
             #region Initialization
 
@@ -30,8 +37,6 @@ namespace Movie.WindowsForms
             groupBox3.Text = @"Series";
 
             #endregion
-
-            var desktopRepo = new Desktop();
             var x = await desktopRepo.View();
             foreach (var item in x)
             {
@@ -87,7 +92,6 @@ namespace Movie.WindowsForms
                 Rating = int.Parse(textBox6.Text),
                 Name = textBox7.Text
             };
-            var desktopRepo = new Desktop();
             desktopRepo.Add(mov);
             button2.BringToFront();
             textBox2.Visible = false;
@@ -109,7 +113,6 @@ namespace Movie.WindowsForms
         private void button5_Click(object sender, EventArgs e)
         {
             var x = listBox1.SelectedItem.ToString().Split('\t');
-            var desktopRepo = new Desktop();
             desktopRepo.Delete(x[0]);
             listBox1.Items.Clear();
             button1_Click(sender, e);
@@ -131,7 +134,6 @@ namespace Movie.WindowsForms
             mov.Type = textBox4.Text == "" ? x[i + 2] : textBox4.Text;
             mov.Rating = textBox6.Text == "" ? int.Parse(x[i + 3]) : int.Parse(textBox6.Text);
             mov.Name = textBox7.Text == "" ? x[i + 4] : textBox7.Text;
-            var desktopRepo = new Desktop();
             desktopRepo.Edit(mov);
             button1_Click(sender, e);
             button5.Visible = false;

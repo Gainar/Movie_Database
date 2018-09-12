@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Movie.Core.Models;
 using Movie.Proxy.Proxy;
+using Ninject;
 
 namespace Movie.WPF
 {
@@ -10,8 +11,14 @@ namespace Movie.WPF
     /// </summary>
     public partial class MainWindow 
     {
+        private readonly IDesktop desktopRepo;
+
         public MainWindow()
         {
+            var kernel = new StandardKernel();
+            kernel.Bind<IDesktop>().To<Desktop>();
+            desktopRepo = kernel.Get<IDesktop>();
+
             InitializeComponent();
             Year.Visibility = Visibility.Hidden;
             YearL.Visibility = Visibility.Hidden;
@@ -31,8 +38,7 @@ namespace Movie.WPF
             ChangeVisible(Visibility.Hidden);
 
             #endregion
-            var desktopRepo = new Desktop();
-            var x = await desktopRepo.View();
+           var x = await desktopRepo.View();
             
             foreach (var item in x)
             {
@@ -73,7 +79,6 @@ namespace Movie.WPF
                 Rating = int.Parse(Rating.Text),
                 Name = Name.Text
             };
-            var desktopRepo = new Desktop();
             desktopRepo.Add(mov);
             PAdd.Visibility = Visibility.Visible;
             Year.Visibility = Visibility.Hidden;
@@ -99,7 +104,6 @@ namespace Movie.WPF
         private  void Delete_Click(object sender, RoutedEventArgs e)
         {
             var x = ViewWindow.SelectedItem.ToString().Split('\t');
-            var desktopRepo = new Desktop();
             desktopRepo.Delete(x[0]);
             ViewWindow.Items.Clear();
             View_Click(sender, e);
@@ -122,7 +126,6 @@ namespace Movie.WPF
             mov.Type = Type.Text == "" ? x[i + 2] : Type.Text;
             mov.Rating = Rating.Text == "" ? int.Parse(x[i + 3]) : int.Parse(Rating.Text);
             mov.Name = Name.Text == "" ? x[i + 4] : Name.Text;
-            var desktopRepo = new Desktop();
             desktopRepo.Edit(mov);
             View_Click(sender, e);
             Delete.Visibility = Visibility.Hidden;
