@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using Movie.Core.Models;
 using Movie.Proxy.Proxy;
-using Ninject;
+
 
 namespace Movie.WPF
 {
@@ -13,15 +13,13 @@ namespace Movie.WPF
     {
         private readonly IDesktop desktopRepo;
 
-        public MainWindow()
+        public MainWindow(IDesktop repo)
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<IDesktop>().To<Desktop>();
-            desktopRepo = kernel.Get<IDesktop>();
+            desktopRepo = repo;
 
             InitializeComponent();
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
             ViewWindow.Visibility = Visibility.Hidden;
             Delete.Visibility = Visibility.Hidden;
@@ -33,8 +31,8 @@ namespace Movie.WPF
             #region Initialization    
             ViewWindow.Items.Clear();
             ViewWindow.Visibility = Visibility.Visible;
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
 
             #endregion
@@ -58,8 +56,8 @@ namespace Movie.WPF
             #region Initialization
 
             ViewWindow.Visibility = Visibility.Hidden;
-            Year.Visibility = Visibility.Visible;
-            YearL.Visibility = Visibility.Visible;
+            Title.Visibility = Visibility.Visible;
+            TitleL.Visibility = Visibility.Visible;
             ChangeVisible(Visibility.Visible);
             PAdd.Visibility = Visibility.Hidden;
             MessageBox.Show("Enter informations.");
@@ -81,8 +79,8 @@ namespace Movie.WPF
             };
             desktopRepo.Add(mov);
             PAdd.Visibility = Visibility.Visible;
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
             ViewWindow.Items.Clear();
             View_Click(sender, e);
@@ -95,8 +93,8 @@ namespace Movie.WPF
             PAdd.Visibility = Visibility.Visible;
             Delete.Visibility = Visibility.Hidden;
             Edit.Visibility = Visibility.Hidden;
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
 
         }
@@ -109,8 +107,8 @@ namespace Movie.WPF
             View_Click(sender, e);
             Delete.Visibility = Visibility.Hidden;
             Edit.Visibility = Visibility.Hidden;
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
 
         }
@@ -130,8 +128,8 @@ namespace Movie.WPF
             View_Click(sender, e);
             Delete.Visibility = Visibility.Hidden;
             Edit.Visibility = Visibility.Hidden;
-            Year.Visibility = Visibility.Hidden;
-            YearL.Visibility = Visibility.Hidden;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Hidden);
 
         }
@@ -140,8 +138,8 @@ namespace Movie.WPF
         {
             Delete.Visibility = Visibility.Visible;
             Edit.Visibility = Visibility.Visible;
-            Year.Visibility = Visibility.Visible;
-            YearL.Visibility = Visibility.Visible;
+            Title.Visibility = Visibility.Hidden;
+            TitleL.Visibility = Visibility.Hidden;
             ChangeVisible(Visibility.Visible);
 
         }

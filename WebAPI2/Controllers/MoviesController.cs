@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DAL.Repository;
 using Movie.Core.Models;
-using Ninject;
+
 
 
 namespace WebAPI2.Controllers
@@ -15,17 +15,11 @@ namespace WebAPI2.Controllers
     {
         private readonly IMovieRepository repo;
 
-        //public MoviesController()
-        //{
-        //        repo=new MovieRepository();
-        //}
-
-        public MoviesController()
+        public MoviesController(IMovieRepository repo)
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<IMovieRepository>().To<MovieRepository>();
-            repo = kernel.Get<IMovieRepository>();
+            this.repo = repo;
         }
+        
         // GET api/<controller>
         [Route ("api/Movies")]
         public IEnumerable<MovieCreator> Get()

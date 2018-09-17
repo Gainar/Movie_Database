@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Movie.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="480 " Width="854">
     <Grid>
         <Button x:Name="View" Content="View Movies" HorizontalAlignment="Left" Margin="25,70,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="View_Click"/>
-        <Button x:Name="PAdd" Content="Add A Movie" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="PAdd_Click"/>
         <Button x:Name="Add" Content="Add This Movie" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="Button_Add"/>
+        <Button x:Name="PAdd" Content="Add A Movie" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="PAdd_Click"/>
         <Button x:Name="Reset" Content="Reset" HorizontalAlignment="Left" Margin="25,230,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="Reset_Click"/>
         <Button x:Name="Delete" Content="Delete" HorizontalAlignment="Left" Margin="550,70,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="Delete_Click"/>
         <Button x:Name="Edit" Content="Edit" HorizontalAlignment="Left" Margin="550,100,0,0" VerticalAlignment="Top" Width="75" Height="25 " Click="Edit_Click"/>
