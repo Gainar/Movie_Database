@@ -1,0 +1,30 @@
+﻿<Window x:Class="Movie.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="480 " Width="854">
+    <Grid>
+        <Button x:Name="View" Content="View Movies" HorizontalAlignment="Left" Margin="25,70,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="View_Click"/>
+        <Button x:Name="Add" Content="Add This Movie" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="Button_Add"/>
+        <Button x:Name="PAdd" Content="Add A Movie" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="PAdd_Click"/>
+        <Button x:Name="Reset" Content="Reset" HorizontalAlignment="Left" Margin="25,230,0,0" VerticalAlignment="Top" Width="100" Height="60" Click="Reset_Click"/>
+        <Button x:Name="Delete" Content="Delete" HorizontalAlignment="Left" Margin="550,70,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="Delete_Click"/>
+        <Button x:Name="Edit" Content="Edit" HorizontalAlignment="Left" Margin="550,100,0,0" VerticalAlignment="Top" Width="75" Height="25 " Click="Edit_Click"/>
+        <ListBox x:Name="ViewWindow" HorizontalAlignment="Left" Height="220" Margin="160,70,0,0" VerticalAlignment="Top" Width="350" SelectionChanged="ViewWindow_SelectionChanged"/>
+        <TextBox x:Name="Title" HorizontalAlignment="Left" Height="23" Margin="650,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="650,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="Genre" HorizontalAlignment="Left" Height="23" Margin="650,210,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="Type" HorizontalAlignment="Left" Height="23" Margin="650,240,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="Rating" HorizontalAlignment="Left" Height="23" Margin="650,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" Margin="650,300,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="TitleL" Content="Title" HorizontalAlignment="Left" Margin="550,150,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="YearL" Content="Year" HorizontalAlignment="Left" Margin="550,180,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GenreL" Content="Genre" HorizontalAlignment="Left" Margin="550,210,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Left" Margin="550,240,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RatingL" Content="Rating" HorizontalAlignment="Left" Margin="550,270,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="NameL" Content="Author's Name" HorizontalAlignment="Left" Margin="550,300,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

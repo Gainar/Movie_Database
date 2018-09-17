@@ -1,15 +1,14 @@
 using System;
+using Movie.Core.Models;
+using Movie.Proxy.Proxy;
+
 
 namespace ConsoleApp1
 {
     class Program
     {
-        private static MovieRepository movRepo;
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            movRepo = new MovieRepository();
-
             var opt = '1';
             while (opt != '5')
             {
@@ -20,7 +19,7 @@ namespace ConsoleApp1
                 Console.WriteLine("3.Edit");
                 Console.WriteLine("4.Delete");
                 Console.WriteLine("5.Exit");
-                opt = char.Parse(Console.ReadLine());
+                opt = char.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
                 switch (opt)
                 {
@@ -54,32 +53,37 @@ namespace ConsoleApp1
 
         private static void Delete()
         {
+            var desktopRepo= new Desktop();
             Console.WriteLine("Add Title.");
-            string titlu = Console.ReadLine();
-            movRepo.DeleteByTitleMovie(titlu);
+            string tit = Console.ReadLine();
+            desktopRepo.Delete(tit);
         }
 
         private static void Edit()
         {
-            Movie newM = new Movie();
+            var desktopRepo = new Desktop();
+            var newM = new MovieCreator();
             Console.WriteLine("Add Title.");
             newM.Title = Console.ReadLine();
             Console.WriteLine("Enter changed Year");
-            newM.Year = int.Parse(Console.ReadLine());
+            newM.Year = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("Enter a valid Year"));
             Console.WriteLine("Enter changed Genre");
             newM.Genre = Console.ReadLine();
             Console.WriteLine("Enter changed Type");
             newM.Type = Console.ReadLine();
             Console.WriteLine("Please enter a rating between 1 and 5.");
-            newM.Rating = int.Parse(Console.ReadLine());
-            movRepo.EditMovie(newM);
+            newM.Rating = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("Enter a valid Rating(1-5)"));
+            Console.WriteLine("Please enter the author's name");
+            newM.Name = Console.ReadLine();
+            desktopRepo.Edit(newM);
         }
 
-        private static void View()
+        private static async void View()
         {
-            var MovieList = movRepo.GetAllMovies();
+            var desktopRepo = new Desktop();
+            var movieList = await desktopRepo.View();
             Console.WriteLine("Database Contains:");
-            foreach (var item in MovieList)
+            foreach (var item in movieList)
             {
                 Console.WriteLine(item.Title.Trim() + " " + item.Year + " " + item.Genre.Trim() + " " + item.Type.Trim() + " " + item.Rating + " " + item.Name);
             }
@@ -87,20 +91,21 @@ namespace ConsoleApp1
 
         private static void Add()
         {
-            MovieCreator newM = new MovieCreator();
+            var desktopRepo = new Desktop();
+            var newM = new MovieCreator();
             Console.WriteLine("Enter a new title");
             newM.Title = Console.ReadLine();
             Console.WriteLine("Enter the year");
-            newM.Year = int.Parse(Console.ReadLine());
+            newM.Year = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("Enter a valid Year"));
             Console.WriteLine("Enter the genre");
             newM.Genre = Console.ReadLine();
             Console.WriteLine("Enter the type");
             newM.Type = Console.ReadLine();
             Console.WriteLine("Enter the rating");
-            newM.Rating = int.Parse(Console.ReadLine());
+            newM.Rating = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("Enter a valid Rating(1-5)"));
             Console.WriteLine("Enter an author");
-            newM.Name= Console.ReadLine();
-            movRepo.AddMovie(newM);
+            newM.Name = Console.ReadLine();
+            desktopRepo.Add(newM);
 
 
         }

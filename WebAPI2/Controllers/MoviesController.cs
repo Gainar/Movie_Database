@@ -1,20 +1,29 @@
-﻿using ConsoleApp1;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DAL.Repository;
+using Movie.Core.Models;
+
+
 
 namespace WebAPI2.Controllers
 {
     public class MoviesController : ApiController
     {
+        private readonly IMovieRepository repo;
+
+        public MoviesController(IMovieRepository repo)
+        {
+            this.repo = repo;
+        }
+        
         // GET api/<controller>
         [Route ("api/Movies")]
         public IEnumerable<MovieCreator> Get()
         {
-            var repo = new MovieRepository();
             return repo.GetAllMovies()
                        .OrderBy(f => f.Title);
         }
@@ -23,10 +32,7 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies/{tit}")]
         public MovieCreator Get(string tit)
         {
-
-            var repo = new MovieRepository();
             return repo.GetMovie(tit);
-
         }
               
 
@@ -34,20 +40,23 @@ namespace WebAPI2.Controllers
         [Route ("api/Movies")]
         public HttpResponseMessage Post([FromBody]MovieCreator mov)
         {
-            var repo = new MovieRepository();
             repo.AddMovie(mov);
             return Request.CreateResponse(HttpStatusCode.Created);
         }
         
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [Route ("api/Movies/{tit}")]
+        public void Put([FromBody]MovieCreator mov)
         {
+            repo.EditMovie(mov);
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        [Route ("api/Movies/{tit}/Delete")]
+        public void Delete(string tit)
         {
+            repo.DeleteByTitleMovie(tit);
         }
     }
 }
